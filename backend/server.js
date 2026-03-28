@@ -71,7 +71,7 @@ const seedUsers = async () => {
         console.log('⏭️  Skipping seed in production mode');
         return;
     }
-    
+
     try {
         const existingAdmin = await User.findOne({ email: 'admin@test.com' });
         if (!existingAdmin) {
@@ -117,19 +117,19 @@ app.use((req, res) => {
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(`[ERROR] ${err.message} at ${req.path}`);
-    
+
     const statusCode = err.status || err.statusCode || 500;
     const isProduction = process.env.NODE_ENV === 'production';
     const response = {
         message: isProduction ? 'Internal server error' : err.message,
         status: statusCode,
     };
-    
+
     if (!isProduction) {
         response.stack = err.stack;
         response.details = err;
     }
-    
+
     res.status(statusCode).json(response);
 });
 
@@ -156,7 +156,7 @@ const gracefulShutdown = (signal) => {
         console.log('✓ Server closed');
         process.exit(0);
     });
-    
+
     // Force shutdown after 10 seconds
     setTimeout(() => {
         console.error('❌ Forced shutdown - some connections did not close');
@@ -177,13 +177,4 @@ process.on('uncaughtException', (error) => {
 process.on('unhandledRejection', (reason, promise) => {
     console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
     process.exit(1);
-});
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/products', require('./routes/products'));
-app.use('/api/comparisons', require('./routes/comparisons'));
-app.use('/api/wishlist', require('./routes/wishlist'));
-app.use('/api/seed', require('./routes/seed'));
-
-app.get('/', (req, res) => {
-    res.json({ message: 'Smart Product Advisor API v1.0 running' });
 });
