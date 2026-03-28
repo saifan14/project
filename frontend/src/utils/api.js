@@ -1,7 +1,17 @@
 import axios from 'axios';
 
+const PRODUCTION_API = 'https://project-woeu.onrender.com/api';
+const LOCAL_API = 'http://localhost:5000/api';
+
+const getBaseURL = () => {
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return LOCAL_API;
+    }
+    return PRODUCTION_API;
+};
+
 const API = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'https://project-woeu.onrender.com/api',
+    baseURL: getBaseURL(),
     timeout: 10000,
 });
 
