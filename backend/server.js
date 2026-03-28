@@ -177,27 +177,7 @@ process.on('uncaughtException', (error) => {
 process.on('unhandledRejection', (reason, promise) => {
     console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
     process.exit(1);
-});      console.error('❌  on startup
-const seedUsers = async () => {
-    try {
-        const existingAdmin = await User.findOne({ email: 'admin@test.com' });
-        if (!existingAdmin) {
-            await User.create({ name: 'Admin User', email: 'admin@test.com', password: 'admin123', role: 'admin' });
-            console.log('✓ Admin user seeded: admin@test.com / admin123');
-        }
-        const existingUser = await User.findOne({ email: 'user@test.com' });
-        if (!existingUser) {
-            await User.create({ name: 'Test User', email: 'user@test.com', password: 'user123', role: 'user' });
-            console.log('✓ Test user seeded: user@test.com / user123');
-        }
-    } catch (err) {
-        console.error('Error seeding users:', err.message);
-    }
-};
-
-setTimeout(seedUsers, 2000);
-
-// Routes
+});
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./routes/products'));
 app.use('/api/comparisons', require('./routes/comparisons'));
