@@ -22,8 +22,23 @@ connectDB();
 const app = express();
 
 // Security & Middleware
+const allowedOrigins = [
+    'https://sem4-orpin.vercel.app',
+    'https://project-lemon-pi-28.vercel.app',
+    'http://localhost:5173',
+    'http://localhost:3000',
+];
+if (process.env.FRONTEND_URL) {
+    allowedOrigins.push(process.env.FRONTEND_URL.replace(/\/+$/, ''));
+}
 app.use(cors({
-    origin: process.env.FRONTEND_URL || (process.env.NODE_ENV === 'development' ? 'http://localhost:5173' : '*'),
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(null, true); // Allow all origins in production for now
+        }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
