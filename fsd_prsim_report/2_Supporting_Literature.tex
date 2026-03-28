@@ -1,0 +1,18 @@
+\chapter{SUPPORTING LITERATURE}
+
+This chapter reviews the existing literature and technologies that form the foundation for the Smart Price-to-Quality Product Advisor System.
+
+\section{MERN Stack for Full-Stack Web Development}
+The MERN stack (MongoDB, Express.js, React.js, Node.js) is a popular full-stack JavaScript framework widely adopted for building modern, scalable web applications. React.js enables component-based UI development with virtual DOM rendering for optimal performance. Express.js and Node.js provide lightweight, event-driven server-side processing for REST API development. MongoDB offers flexible, schema-less document storage suitable for dynamic product data. The all-JavaScript ecosystem simplifies development by using a single language across both client and server.
+
+\section{Role-Based Access Control (RBAC)}
+Role-Based Access Control is a security model that restricts system access based on assigned roles. In this system, two roles—User and Admin—determine what operations each actor can perform. Users have read-only access to product data, while Admins can perform CRUD operations. JWT (JSON Web Tokens) are used for stateless session management and secure API authentication. This approach ensures data integrity and prevents unauthorized modifications.
+
+\section{Product Recommendation and Scoring Systems}
+Recommendation systems have been extensively studied in areas such as e-commerce, streaming, and content delivery. Traditional approaches include collaborative filtering, content-based filtering, and hybrid models. In this system, a weighted scoring algorithm computes a Price-to-Quality Value Score using parameters such as performance, specifications, user ratings, warranty, and cost. This approach provides transparent, explainable recommendations rather than opaque machine-learning-based suggestions.
+
+\section{MongoDB and Mongoose ODM}
+MongoDB is a NoSQL, document-oriented database that stores data in JSON-like BSON format. It provides flexibility for handling variable product attributes through dynamic schemas. Mongoose serves as the Object Data Modeling (ODM) library, providing schema enforcement, data validation, middleware hooks, and query building on top of MongoDB. The combination enables structured yet flexible data management for multi-category product information.
+
+\section{REST API Design Principles}
+REpresentational State Transfer (REST) is an architectural style that defines a set of constraints for creating web services. RESTful APIs use standard HTTP methods (GET, POST, PUT, DELETE) mapped to CRUD operations. The system follows REST conventions with clearly defined endpoints for authentication, product management, comparisons, and wishlist operations. This ensures predictable API behavior and easy integration with frontend components.

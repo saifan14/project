@@ -2,12 +2,13 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { protect } = require('../middleware/auth');
+const { validateEmail, validatePassword } = require('../middleware/validation');
 
 const router = express.Router();
 
 const generateToken = (id) => {
     if (!process.env.JWT_SECRET) {
-        console.error('JWT_SECRET is not defined. Check backend/.env');
+        console.error('JWT_SECRET is not defined');
         throw new Error('JWT secret not configured');
     }
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
@@ -17,10 +18,22 @@ const generateToken = (id) => {
 router.post('/register', async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
+        
+        // Validation
+        if (!name || name.trim().length === 0) {
+            return res.status(400).json({ message: 'Name is required' });
+        }
+        if (!validateEmail(email)) {
+            return res.status(400).json({ message: 'Invalid email format' });
+        }
+        if (!validatePassword(password)) {
+            return res.status(400).json({ message: 'Password must be at least 6 characters' });
+        }
+        
         const userExists = await User.findOne({ email });
         if (userExists) return res.status(400).json({ message: 'User already exists' });
 
-        const userData = { name, email, password, role: role || 'user' };
+        const userData = { name: name.trim(), email: email.toLowerCase(), password, role: role || 'user' };
         const user = await User.create(userData);
         res.status(201).json({
             _id: user._id,
@@ -31,7 +44,7 @@ router.post('/register', async (req, res) => {
         });
     } catch (error) {
         console.error('Register error:', error);
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: 'Error during registration' });
     }
 });
 
@@ -39,7 +52,12 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email });
+        
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Email and password are required' });
+        }
+        
+        const user = await User.findOne({ email: email.toLowerCase() });
         if (user && (await user.matchPassword(password))) {
             res.json({
                 _id: user._id,

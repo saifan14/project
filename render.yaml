@@ -1,0 +1,14 @@
+# Render Backend Deployment Configuration
+services:
+  - type: web
+    name: sem4-backend
+    runtime: node
+    startCommand: node backend/server.js
+    buildCommand: npm install && npm install --prefix backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false

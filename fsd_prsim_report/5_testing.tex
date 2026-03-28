@@ -1,0 +1,171 @@
+\chapter{TESTING}
+\sloppy
+Testing is a critical phase in software development, ensuring that the system operates correctly, securely, and efficiently. Without proper testing, the application may face issues such as incorrect calculations, broken functionalities, security vulnerabilities, or system crashes. In the Smart Price-to-Quality Product Advisor System, different levels of testing were performed, including unit testing, integration testing, system testing, and performance testing.
+
+Unit testing verifies individual components such as authentication logic, product management functions, and value score calculations. Integration testing ensures that the frontend, backend, and database interact correctly. System testing evaluates the entire application workflow from login to recommendation generation. Performance testing ensures that the system can handle multiple users and product comparisons without delays. 
+\noindent
+
+\section{Unit Testing}
+Unit testing focuses on testing individual modules of the system independently to ensure they function correctly.
+
+For example:
+
+Authentication testing verifies whether users and admins can log in with valid credentials and are denied access with invalid credentials.Product management testing ensures that Admin functionalities such as Add, Edit, and Delete products work correctly.Value score calculation testing checks whether the Price-to-Quality algorithm produces accurate results based on given inputs.Input validation testing ensures that incorrect or incomplete data cannot be submitted to the database.By performing unit testing, errors are identified early in development, improving system stability and reliability.
+
+
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{1.5cm}|p{3cm}|p{3.3cm}|p{3.1cm}|p{1.2cm}|}
+    \hline
+    \textbf{Test Case ID} & \textbf{Component} & \textbf{Test Description} & \textbf{Expected Result} & \textbf{Status} \\
+    \hline
+
+    UT01 & User Registration & Verify that a new user can register with valid details & User account is successfully created & Pass \\
+    \hline
+    UT02 & User Login & Verify login with valid and invalid credentials & Valid login redirects to dashboard; invalid login shows error & Pass \\
+    \hline
+    UT03 & Admin Login & Ensure only admin credentials allow access to admin panel & Admin dashboard opens only for authorized admin & Pass \\
+    \hline
+    UT04 & Add Product (Admin) & Verify admin can add product with complete details & Product is successfully stored in database & Pass \\
+    \hline
+    UT05 & Edit Product (Admin) & Verify admin can update product details & Updated product information is saved correctly & Pass \\
+    \hline
+    UT06 & Delete Product (Admin) & Ensure admin can remove a product & Product is removed from database & Pass \\
+    \hline
+    UT07 & Product Filtering & Verify filtering by category, brand, or budget & Only matching products are displayed & Pass \\
+    \hline
+    UT08 & Product Comparison & Verify selected products display side-by-side comparison & Comparison dashboard shows correct attributes & Pass \\
+    \hline
+    UT09 & Value Score Calculation & Validate Price-to-Quality score computation & Correct value score is generated & Pass \\
+    \hline
+    UT10 & Recommendation Module & Verify highest value score product is recommended & Best product is correctly displayed & Pass \\
+    \hline
+    UT11 & Input Validation & Ensure invalid or incomplete data is rejected & Error message displayed; data not stored & Pass \\
+    \hline
+    UT12 & Role-Based Access Control & Verify users cannot access admin routes & Unauthorized access is blocked & Pass \\
+
+\end{tabular}
+\caption{Unit Test Cases for Smart Price-to-Quality Product Advisor System}
+\label{tab:unit_tests}
+\end{table}
+
+
+
+
+
+
+
+\newpage
+\section{Integration Testing}
+
+Integration testing ensures that different system modules such as frontend, backend, database, authentication, and recommendation logic work together correctly. It verifies that APIs, database interactions, and UI components function seamlessly as a unified system.
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \small
+    \begin{tabular}{|c|p{3cm}|p{3cm}|p{3cm}|c|}
+        \hline
+        \textbf{Test Case ID} & \textbf{Component} & \textbf{Test Description} & \textbf{Expected Result} & \textbf{Status} \\
+        \hline
+        IT01 & Frontend and Backend & Verify if login requests are processed correctly & User/Admin redirected to respective dashboard & Pass \\
+        \hline
+        IT02 & Backend and Database & Ensure product data is stored and retrieved properly & Products displayed correctly from database & Pass \\
+        \hline
+        IT03 & Admin Module and Database & Verify add/edit/delete product updates database & Product changes reflected immediately & Pass \\
+        \hline
+        IT04 & Value Score and UI & Check if calculated value score displays correctly & Correct score shown in comparison page & Pass \\
+        \hline
+        IT05 & Filtering and Database & Ensure budget/category filters fetch correct data & Only matching products displayed & Pass \\
+        \hline
+        IT06 & Recommendation and Comparison & Verify best product is selected based on highest score & Recommended product displayed correctly & Pass \\
+        \hline
+    \end{tabular}
+    \caption{Integration Test Cases for Smart Price-to-Quality Product Advisor System}
+    \label{tab:integration_tests}
+\end{table}
+
+\newpage
+\section{System Testing}
+
+System testing evaluates the complete application to ensure all modules function together properly. It verifies authentication, product management, comparison logic, recommendation system, and overall performance.
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{|p{1.5cm}|p{3cm}|p{3.4cm}|p{3cm}|p{1.2cm}|}
+        \hline
+        \textbf{Test Case ID} & \textbf{Component} & \textbf{Test Description} & \textbf{Expected Result} & \textbf{Status} \\
+        \hline
+        ST01 & Application Launch & Verify system loads without errors & Application starts successfully & Pass \\
+        \hline
+        ST02 & User Interface & Check all pages and buttons function properly & Navigation works smoothly & Pass \\
+        \hline
+        ST03 & Authentication System & Ensure login and role-based access works & Proper access granted based on role & Pass \\
+        \hline
+        ST04 & Product Comparison & Verify full comparison workflow & Products compared correctly & Pass \\
+        \hline
+        ST05 & Recommendation\\ System & Validate end-to-end recommendation process & Best product displayed accurately & Pass \\
+        \hline
+    \end{tabular}
+    \caption{System Test Cases for Smart Price-to-Quality Product Advisor System}
+    \label{tab:system_tests}
+\end{table}
+
+\newpage
+\section{Regression Testing}
+
+Regression testing ensures that updates or feature additions do not break existing functionalities of the system.
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \small
+    \begin{tabular}{|c|c|p{3cm}|p{3cm}|c|}
+        \hline
+        \textbf{Test Case ID} & \textbf{Component} & \textbf{Test Description} & \textbf{Expected Result} & \textbf{Status} \\
+        \hline
+        RT01 & Authentication Module & Verify login works after updates & Login functions without errors & Pass \\
+        \hline
+        RT02 & Product Management & Ensure admin updates don’t affect display logic & Products display correctly after edits & Pass \\
+        \hline
+        RT03 & Comparison Logic & Validate comparison still works after feature changes & Comparison dashboard accurate & Pass \\
+        \hline
+        RT04 & Value Score Algorithm & Check score accuracy after weight adjustments & Score calculation remains correct & Pass \\
+        \hline
+        RT05 & Role-Based Access & Ensure users still cannot access admin routes & Unauthorized access blocked & Pass \\
+        \hline
+    \end{tabular}
+    \caption{Regression Test Cases for Smart Price-to-Quality Product Advisor System}
+    \label{tab:regression_tests}
+\end{table}
+
+\newpage
+\section{Performance Testing}
+
+Performance testing ensures that the web application runs efficiently under different operating conditions and user loads. It evaluates system responsiveness, database performance, server stability, and overall resource utilization to guarantee a smooth user experience.
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{|p{1.5cm}|p{3cm}|p{3.4cm}|p{3cm}|p{1.2cm}|}
+        \hline
+        \textbf{Test Case ID} & \textbf{Component} & \textbf{Test Description} & \textbf{Expected Result} & \textbf{Status} \\
+        \hline
+        PT01 & Page Load Time & Measure time taken to load dashboard and product pages & Pages load within 2-3 seconds & Pass \\
+        \hline
+        PT02 & Database Performance & Check speed of product retrieval and filtering & Products display without noticeable delay & Pass \\
+        \hline
+        PT03 & Concurrent Users & Test system with multiple simultaneous users & System handles concurrent requests smoothly & Pass \\
+        \hline
+        PT04 & Memory Usage & Monitor server RAM usage during operation & Memory usage remains within stable limits & Pass \\
+        \hline
+        PT05 & Server Stability & Run application continuously for extended duration & System runs without crashes or failures & Pass \\
+        \hline
+    \end{tabular}
+    \caption{Performance Test Cases for Smart Price-to-Quality Product Advisor System}
+    \label{tab:performance_tests}
+\end{table}

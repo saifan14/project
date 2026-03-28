@@ -1,0 +1,347 @@
+\chapter{SYSTEM ANALYSIS }
+ 
+ \section{Module Description}
+ The Smart Price-to-Quality Product Advisor System is divided into multiple functional modules, each responsible for handling a specific operation within the system. These modules work together to ensure secure access control, efficient product management, accurate comparison, and intelligent recommendations. The main modules include:
+ \begin{itemize}
+    \item \textbf{User Authentication Module:}This module is responsible for handling user registration and login functionality. It allows new users to create an account and existing users to securely log in using their credentials. The system validates user data and ensures secure session management. Password encryption and authentication checks are implemented to protect user information. Once logged in, users can access product viewing, comparison, and recommendation features. However, users are restricted from modifying product data, ensuring data integrity.
+    \item \textbf{Admin Authentication \& Management Module:}This module provides a separate and secure login system specifically for the Admin. The Admin has exclusive privileges to manage product data within the system. After successful authentication, the Admin can add new products, edit existing product details, update specifications and prices, and delete products from the database. This module ensures role-based access control, meaning only authorized administrators can perform these operations, while regular users have read-only access.
+    \item \textbf{Product Management Module (Admin Only):}This module allows the Admin to maintain the product database efficiently. It includes functionalities such as adding new products with detailed specifications, editing product information, updating price details, and removing outdated products. The module interacts directly with the database to store and retrieve product information. It ensures that all product data remains structured, consistent, and up to date.
+    \item \textbf{Product Viewing \& Category Selection Module:}This module enables users to browse products based on selected categories such as smartphones, laptops, appliances, or accessories. Users can filter products by brand, price range, or specifications. The system dynamically fetches relevant product details from the database and displays them in an organized format. This ensures users can easily explore available products before making comparisons.
+    \item \textbf{Product Comparison Module:}The comparison module allows users to select multiple products and view their specifications side by side. It presents detailed attributes such as performance, features, ratings, warranty, and price in a structured dashboard format. This module simplifies decision-making by enabling direct comparison of different products within the same category.
+    \item \textbf{Price-to-Quality Value Score Module:}This module is responsible for computing the Price-to-Quality Value Score. It uses weighted parameters such as specifications, performance metrics, user ratings, warranty, and cost. The algorithm processes these inputs and generates a score that reflects the overall value of each product. The product with the highest value score is identified as the best recommendation. This module ensures that recommendations are data-driven rather than based solely on price.
+    \item \textbf{Recommendation Module:}Based on the calculated value scores and user-defined priorities (such as budget constraints or feature importance), this module recommends the most suitable product. It highlights the best-performing product and provides reasoning based on the evaluation metrics. This helps users make informed and unbiased purchasing decisions.
+    \item \textbf{Database Management Module:}This module handles all interactions with the database. It stores user credentials, product details, specifications, ratings, and other relevant information. It ensures secure data storage, efficient retrieval, and consistency across system operations. All modules depend on this component for accurate and real-time data access.
+    \item \textbf{User Interface Module:}The User Interface (UI) module manages the design and interaction elements of the system. It includes login pages, dashboards, product display pages, comparison screens, and admin management panels. The UI is responsive and user-friendly, ensuring smooth navigation across devices such as desktops, tablets, and mobile phones. Proper layout design improves usability and enhances overall user experience.
+    
+\end{itemize}
+\section{Business Rules}
+Business rules are specific guidelines, conditions, or constraints that govern the operations of a
+business or system. They define how processes and activities should be conducted to ensure
+consistency, fairness, and alignment with business objectives. Business rules help ensure that the
+system behaves as expected and meets the needs of users or stakeholders.\\\\
+\textbf{User \& Admin Access Rules}
+\begin{itemize}
+    \item The system follows role-based access control with two roles: User and Admin.
+    \item Only registered users can log in and access comparison and recommendation features.
+    \item A separate Admin login is required for product management.
+    \item Users cannot add, edit, or delete products.
+    \item Only Admins are authorized to add, update, or remove product data.
+\end{itemize}
+\textbf{Product Management Rules}
+\begin{itemize}
+    \item All products must contain complete details (name, category, brand, price, specifications, rating).
+    \item Price must be a valid value greater than zero.
+    \item Duplicate products within the same category are not allowed.
+    \item Editing updates the existing record; deletion permanently removes the product.
+\end{itemize}
+\textbf{Product Comparison Rules}
+\begin{itemize}
+    \item Users can compare only products within the same category.
+    \item The system displays side-by-side comparison of selected products.
+    \item Filters (brand, category, budget) must return only matching products.
+\end{itemize}
+\textbf{Price-to-Quality Value Score Rules}
+\begin{itemize}
+    \item Each product must have sufficient attributes for score calculation.
+    \item The system calculates a value score using weighted parameters (performance, features, ratings, warranty, price).
+    \item The product with the highest score is recommended.
+\end{itemize}
+
+
+\newpage
+\section{Analysis of Architecture (and/ or) Algorithms}
+{\large \textbf{MERN Stack Architecture}}\\\\
+The Smart Price-to-Quality Product Advisor System is built using the MERN Stack (MongoDB, Express.js, React.js, Node.js). This architecture ensures scalability, efficient data handling, secure authentication, and dynamic user interaction.\\\\
+\begin{enumerate}
+    \item \textbf{ Frontend Architecture}
+    \begin{itemize}
+        \item React is used to build a responsive and component-based user interface.
+        \item It manages pages such as User Login, Admin Panel, Product Listing, and Comparison Dashboard.
+    \end{itemize}
+    \item \textbf{Backend}
+    \begin{itemize}
+        \item Node.js handles server-side operations.
+        \item Express manages routing
+        \item Role-based middleware restricts Admin functionalities (Add, Edit, Delete products).
+
+        \item Business logic and value score calculations are processed on the server
+    \end{itemize}
+    \item \textbf{Database}
+    \begin{itemize}
+        \item MongoDB stores users and product data.
+        \item Mongoose schemas enforce validation and data consistency
+        \item Ensures secure and efficient data storage.
+    \end{itemize}
+    \item \textbf{Price-to-Quality Value Score Algorithm}
+  
+         The system calculates a weighted score based on:
+ \begin{itemize}
+\item Performance
+\item Features
+\item Ratings
+\item Warranty
+\item Price
+\end{itemize}
+Value Score = (Weighted Quality Parameters) ÷ Price
+\begin{itemize}
+\item Higher score indicates better value.
+\item User-defined priorities adjust weight distribution.
+\item The highest-scoring product is recommended.
+        \item Built-in testing tools help verify score accuracy and system behavior efficiently.
+    \end{itemize}
+\end{enumerate}
+\textbf{Why MERN?}\\\\
+\begin{itemize}
+\item Full-stack JavaScript environment
+\item Scalable and flexible architecture
+\item Secure role-based access control
+\item Real-time and dynamic user experience
+\end{itemize}
+This architecture ensures accurate product evaluation, secure management, and efficient recommendation generation.
+\section{Project Pipeline}
+
+\begin{figure}[H]
+\centering
+
+\begin{tikzpicture}[
+node distance=1.2cm,
+block/.style={rectangle, draw=gray!50, text width=4.5cm, minimum height=1cm,
+align=center, rounded corners=4pt, font=\small, thick},
+arrow/.style={-{Stealth[length=3mm]}, thick, gray!60},
+phase/.style={circle, fill=gray!15, draw=gray!40, font=\tiny\bfseries,
+inner sep=1.5pt, minimum size=0.5cm}
+]
+
+\node[block, fill=blue!10] (req)
+{Requirements Analysis \\ {\scriptsize SRS Preparation, Feature Identification}};
+
+\node[block, fill=teal!8, below=of req] (design)
+{System Design \\ {\scriptsize Use Case, Activity Diagram, Database Design}};
+
+\node[block, fill=green!8, below=of design] (backend)
+{Backend Development \\ {\scriptsize Node.js, Express.js, MongoDB Setup}};
+
+\node[block, fill=cyan!8, below=of backend] (frontend)
+{Frontend Development \\ {\scriptsize React.js UI, Product Pages, Forms}};
+
+\node[block, fill=violet!7, below=of frontend] (admin)
+{Admin Panel Development \\ {\scriptsize Add Product, Update Product, Delete Product}};
+
+\node[block, fill=orange!8, below=of admin] (test)
+{Testing \\ {\scriptsize Unit Testing, Integration Testing, System Testing}};
+
+\node[block, fill=red!8, below=of test] (deploy)
+{Deployment \\ {\scriptsize Build, Run Server, Database Connection}};
+
+\foreach \n/\i in {req/1, design/2, backend/3, frontend/4, admin/5, test/6, deploy/7}
+\node[phase] at ([xshift=-2.8cm]\n.center) {\i};
+
+\draw[arrow] (req.south) -- (design.north);
+\draw[arrow] (design.south) -- (backend.north);
+\draw[arrow] (backend.south) -- (frontend.north);
+\draw[arrow] (frontend.south) -- (admin.north);
+\draw[arrow] (admin.south) -- (test.north);
+\draw[arrow] (test.south) -- (deploy.north);
+
+\end{tikzpicture}
+
+\caption{Project Pipeline for Smart Price-to-Quality Product Advisor System}
+\label{fig:project_pipeline}
+
+\end{figure}
+
+\subsection{Software Requirement Specification (SRS)}
+
+This subsection documents the Software Requirement Specification for the Smart Price-to-Quality Product Advisor System, derived from the project SRS document.
+
+\subsubsection{Project Overview}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{4cm}|p{9cm}|}
+    \hline
+    \textbf{Field} & \textbf{Details} \\
+    \hline
+    Project Title & Smart Price-to-Quality Product Advisor System \\
+    \hline
+    Full Title & Smart Price-to-Quality Product Advisor System (Generalized Product Comparison Platform) \\
+    \hline
+    Technology Stack & MERN Stack (MongoDB, Express.js, React.js, Node.js) \\
+    \hline
+    Target Users & Students, professionals, and general consumers \\
+    \hline
+\end{tabular}
+\caption{Project Overview Summary}
+\label{tab:srs_overview}
+\end{table}
+
+\subsubsection{Project Abstract}
+
+This project focuses on developing a generalized, intelligent Product Selection and Comparison System that assists users in choosing the most suitable product across multiple categories and brands. The system allows users to first select the type of product (such as smartphones, laptops, appliances, wearables, or accessories) and then choose preferred brands before proceeding to comparison. Instead of relying solely on price, the application evaluates products using a flexible Price-to-Quality Value Score that considers specifications, features, performance metrics, user ratings, reviews, warranty, and cost. The system supports multi-product comparison, budget-based filtering, personalized priorities, and category-specific evaluation criteria.
+
+\subsubsection{Functional Components}
+
+\begin{enumerate}
+    \item Product category selection (e.g., electronics, appliances, accessories)
+    \item Brand selection within the chosen product category
+    \item Dynamic product comparison based on category-specific attributes
+    \item Price-to-Quality Value Score computation
+    \item Best product recommendation based on user priorities
+    \item Budget-based filtering and suggestions
+    \item Multi-brand and multi-product comparison support
+\end{enumerate}
+
+\subsubsection{Functional Requirements}
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{1.5cm}|p{3.5cm}|p{7.5cm}|}
+    \hline
+    \textbf{Req ID} & \textbf{Requirement} & \textbf{Description} \\
+    \hline
+    FR01 & User Registration & The system shall allow new users to register with name, email, and password. \\
+    \hline
+    FR02 & User Login & The system shall authenticate users using email and password with JWT tokens. \\
+    \hline
+    FR03 & Admin Login & The system shall provide a separate admin authentication with elevated privileges. \\
+    \hline
+    FR04 & Product Browsing & The system shall display products organized by categories (Smartphones, Laptops, Appliances, Wearables, Accessories, Audio, Gaming, Other). \\
+    \hline
+    FR05 & Product Filtering & Users shall be able to filter products by category, brand, and price range. \\
+    \hline
+    FR06 & Product Comparison & The system shall allow users to select and compare multiple products side by side. \\
+    \hline
+    FR07 & Value Score Calculation & The system shall compute a Price-to-Quality Value Score using weighted parameters (specs, rating, warranty, price). \\
+    \hline
+    FR08 & Product Recommendation & The system shall recommend the product with the highest value score. \\
+    \hline
+    FR09 & Wishlist Management & Users shall be able to add and remove products from their wishlist. \\
+    \hline
+    FR10 & Admin Product CRUD & Admin shall be able to add, update, and delete product records. \\
+    \hline
+    FR11 & Saved Comparisons & Users shall be able to save and retrieve product comparisons. \\
+    \hline
+\end{tabular}
+\caption{Functional Requirements}
+\label{tab:functional_req}
+\end{table}
+
+\subsubsection{Non-Functional Requirements}
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{1.5cm}|p{3.5cm}|p{7.5cm}|}
+    \hline
+    \textbf{Req ID} & \textbf{Requirement} & \textbf{Description} \\
+    \hline
+    NFR01 & Performance & Pages shall load within 2--3 seconds under normal conditions. \\
+    \hline
+    NFR02 & Security & Passwords shall be hashed using bcrypt; API routes shall be protected with JWT middleware. \\
+    \hline
+    NFR03 & Scalability & The system shall support concurrent user sessions without degradation. \\
+    \hline
+    NFR04 & Usability & The interface shall be responsive and accessible across desktop, tablet, and mobile devices. \\
+    \hline
+    NFR05 & Data Integrity & Role-based access control shall prevent unauthorized data modifications. \\
+    \hline
+    NFR06 & Availability & The system shall be available during standard operating hours with minimal downtime. \\
+    \hline
+    NFR07 & Maintainability & The codebase shall follow modular design patterns for easy updates and maintenance. \\
+    \hline
+\end{tabular}
+\caption{Non-Functional Requirements}
+\label{tab:nonfunctional_req}
+\end{table}
+
+ \section{Feasibility Analysis}
+ 
+ \subsection{Technical Feasibility}
+
+ Technical feasibility evaluates whether the project can be developed using available technologies, tools, and technical expertise.
+
+The Smart Price-to-Quality Product Advisor System is technically feasible as it is developed using the MERN stack (MongoDB, Express.js, React.js, Node.js), which is widely used for modern web applications. The frontend is built using React.js, providing a dynamic and responsive user interface for login, product comparison, and recommendation features. The backend is implemented using Node.js and Express.js to handle API requests, authentication, and business logic.
+
+MongoDB is used as the database to store user credentials and product details in a structured format. Mongoose schemas ensure proper validation and data consistency. Role-based access control is implemented to differentiate Admin and User privileges, ensuring secure product management. The Price-to-Quality Value Score algorithm is integrated within the backend to process product attributes and generate recommendations efficiently.
+
+Version control is managed using Git and GitHub, ensuring smooth collaboration and project tracking. Since all technologies used are open-source and well-documented, the project is highly feasible and scalable.\\\\
+ \noindent
+
+
+ 
+ \subsection{Economical Feasibility}
+ Economic feasibility determines whether the project is cost-effective and financially sustainable.\\\\
+ The Smart Price-to-Quality Product Advisor System is economically feasible as it utilizes free and open-source technologies such as React, Node.js, Express, and MongoDB. No expensive licenses or proprietary software are required. Development costs are minimal since the tools used are freely available and widely supported.
+
+If deployed online, the system can be hosted using affordable or free cloud platforms. Maintenance costs are also low, as updates primarily involve modifying product data or enhancing features. The system provides significant value by helping users make informed purchasing decisions, making it a cost-effective and practical solution.
+
+
+ 
+ \subsection{Operational Feasibility}
+  Operational feasibility evaluates whether the project aligns with operational requirements and whether it can be smoothly integrated into existing processes.\\\\
+ The system is designed to be user-friendly and easy to operate. Users can register, log in, browse products, apply filters, compare products, and receive recommendations without technical complexity. The Admin can efficiently manage product data through a dedicated management interface.\\\\
+\noindent
+The Price-to-Quality Value Score algorithm operates automatically in the background, ensuring accurate and real-time recommendations. Role-based access control ensures secure and smooth system operations. Since the application follows a structured architecture and intuitive interface design, it can be easily adopted by students, professionals, and general consumers.\\\\
+\noindent
+Overall, the Smart Price-to-Quality Product Advisor System demonstrates strong technical, economical, and operational feasibility, making it a practical and scalable solution for intelligent product comparison and recommendation.
+ \section{System Environment}
+ 
+ \subsection{Software Environment}
+ \textbf{React.js:}
+ React.js is used for developing the user interface of the Smart Price-to-Quality Product Advisor System. It provides a component-based architecture that allows efficient development of reusable UI components such as Login pages, Admin Dashboard, Product Listing, Comparison Dashboard, and Recommendation pages. React ensures dynamic rendering, smooth navigation using routing, and real-time updates when filtering or comparing products.\\\\
+ \textbf{Node.js:}
+ Node.js serves as the backend runtime environment for handling server-side logic. It processes API requests, manages authentication, performs value score calculations, and communicates with the database. Node.js enables scalable and efficient handling of multiple user requests.
+ \\\\
+ \textbf{Express.js:}
+Express.js is used to build RESTful APIs and manage routing within the backend. It handles user authentication routes, product management routes, and recommendation logic. Middleware functions are implemented to enforce role-based access control, ensuring that only Admin users can perform product modifications.
+\\\\
+ \textbf{MongoDB:}
+ MongoDB is used to store user credentials and product information in a structured format. It manages collections such as Users and Products. Mongoose is used to define schemas, enforce validation rules, and maintain data consistency. MongoDB ensures efficient data storage and retrieval for comparison and recommendation processes.
+\\\\
+
+\textbf{Mongoose:}
+Mongoose acts as an Object Data Modeling (ODM) library that connects Node.js with MongoDB. It defines structured schemas for product and user data and ensures proper validation before storing records in the database.
+ 
+ 
+ \subsection{Hardware Environment}
+ \textbf{Processor (CPU):}i5 12th Gen\\\\
+ \textbf{Memory (RAM):}16 GB\\\\
+ \textbf{Storage:}512 GB SSD\\\\
+ \textbf{Graphics Card (GPU):}RTX 3050 4 GB\\\\
+ \textbf{Operating System:}Windows 11
+ \newpage
+ \section{Actors and Roles}
+
+The system involves two primary actors: \textbf{User} and \textbf{Admin}.\\\\
+
+\noindent
+\textbf{Actor Name: User}
+\\\\
+\textbf{Role:}
+\begin{itemize}
+    \item Register and log in to the system
+    \item Browse available products
+    \item Search and filter products based on preferences
+    \item View detailed product information
+    \item Compare products
+    \item View price-to-quality recommendations
+    \item Logout from the system
+\end{itemize}
+
+\noindent
+\textbf{Actor Name: Admin}
+\\\\
+\textbf{Role:}
+\begin{itemize}
+    \item Log in to the admin panel
+    \item Add new products to the database
+    \item Update existing product details
+    \item Delete products from the system
+    \item Manage and maintain product information
+    \item Monitor system data
+    \item Logout from the system
+\end{itemize}
